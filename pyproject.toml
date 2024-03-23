@@ -9,6 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 sqlalchemy = "^2.0.28"
+emoji = "^2.10.1"
 
 
 [build-system]

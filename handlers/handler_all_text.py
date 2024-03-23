@@ -37,6 +37,16 @@ class HandlerAllText(Handler):
         self.bot.send_message(message.chat.id, "Вы вернулись назад",
                               reply_markup=self.keybords.start_menu())
 
+    def pressed_btn_category(self, message):
+        """
+        Обработка события нажатия на кнопку 'Выбрать товар'. А точнеe
+        это выбор категории товаров
+        """
+        self.bot.send_message(message.chat.id, "Каталог категорий товара",
+                              reply_markup=self.keybords.remove_menu())
+        self.bot.send_message(message.chat.id, "Сделайте свой выбор",
+                              reply_markup=self.keybords.category_menu())
+
     def handle(self):
         @self.bot.message_handler(func=lambda message: True)
         def handle(message):
@@ -50,3 +60,6 @@ class HandlerAllText(Handler):
 
             if message.text == setting.KEYBOARD['<<']:
                 self.pressed_btn_back(message)
+
+            if message.text == setting.KEYBOARD['CHOOSE_GOODS']:
+                self.pressed_btn_category(message)

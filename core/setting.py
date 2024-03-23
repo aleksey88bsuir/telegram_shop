@@ -20,6 +20,7 @@ KEYBOARD = {
     'SEMIPRODUCT': emojize(':pizza: Полуфабрикаты'),
     'GROCERY': emojize(':bread: Бакалея'),
     'ICE_CREAM': emojize(':shaved_ice: Мороженое'),
+    'AUTO': emojize('🚘 автомобили'),
     '<<': emojize('⏪'),
     '>>': emojize('⏩'),
     'BACK_STEP': emojize('◀️'),
@@ -39,6 +40,7 @@ CATEGORY = {
     'SEMIPRODUCT': 1,
     'GROCERY': 2,
     'ICE_CREAM': 3,
+    'AUTO': 4,
 }
 
 # названия команд

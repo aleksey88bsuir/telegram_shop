@@ -10,6 +10,7 @@ readme = "README.md"
 python = "^3.10"
 sqlalchemy = "^2.0.28"
 emoji = "^2.10.1"
+telebot = "^0.0.5"
 
 
 [build-system]

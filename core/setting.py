@@ -10,7 +10,7 @@ AUTHOR = 'R-443Y_company'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE = os.path.join(f'sqlite:///{BASE_DIR}', NAME_DB)
 
-# COUNT = 0
+COUNT = 0
 
 # кнопки управления
 KEYBOARD = {
@@ -26,7 +26,7 @@ KEYBOARD = {
     'NEXT_STEP': emojize('▶️'),
     'ORDER': emojize('✅ ЗАКАЗ'),
     'X': emojize('❌'),
-    'DOUWN': emojize('🔽'),
+    'DOWN': emojize('🔽'),
     'AMOUNT_PRODUCT': COUNT,
     'AMOUNT_ORDERS': COUNT,
     'UP': emojize('🔼'),

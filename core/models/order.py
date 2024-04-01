@@ -1,25 +1,14 @@
-from sqlalchemy import Column, DateTime, Integer, ForeignKey
-from sqlalchemy.orm import relationship, backref
-from core.models.product import Product
 from .base import Base
+
+from datetime import datetime
+from sqlalchemy import func
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class Order(Base):
-    """
-    Класс для создания таблицы "Заказ",
-    основан на декларативном стиле SQLAlchemy
-    """
-    quantity = Column(Integer)
-    data = Column(DateTime)
-    product_id = Column(Integer, ForeignKey('products.id'))
-    user_id = Column(Integer)
-
-    # для каскадного удаления данных из таблицы
-    products = relationship(
-        Product,
-        backref=backref('orders',
-                        uselist=True,
-                        cascade='delete,all'))
-
-    def __str__(self):
-        return f"{self.quantity} {self.data}"
+    promocode: Mapped[str | None]
+    created_at: Mapped[datetime] = mapped_column(
+        server_default=func.now(),
+        default=datetime.now,
+    )
+    total_price: Mapped[int]

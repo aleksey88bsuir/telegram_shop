@@ -1,6 +1,7 @@
 # импортируем специальные типы телеграм бота для создания элементов интерфейса
 from telebot.types import (KeyboardButton, ReplyKeyboardMarkup,
-                           ReplyKeyboardRemove)
+                           ReplyKeyboardRemove, InlineKeyboardButton,
+                           InlineKeyboardMarkup)
 from core import setting
 from data_base.dbalchemy import DBManager
 
@@ -69,4 +70,24 @@ class Keyboards:
         self.markup.add(self.set_btn('ICE_CREAM'))
         self.markup.add(self.set_btn('AUTO'))
         self.markup.row(self.set_btn('<<'))
+        return self.markup
+
+    @staticmethod
+    def set_inline_btn(name):
+        """
+        Создает и возвращает инлайн-кнопку по входным параметрам
+        """
+        return InlineKeyboardButton(str(name),
+                                    callback_data=str(name.id))
+
+    def set_select_category(self, category):
+        """
+        Создает разметку инлайн-кнопок в выбранной
+        категории товара и возвращает разметку
+        """
+        self.markup = InlineKeyboardMarkup(row_width=1)
+        # загружаем в названия инлайн-кнопок данные
+        # из БД в соответствие с категорией товара
+        for itm in self.BD.select_all_products_category(category):
+            self.markup.add(self.set_inline_btn(itm))
         return self.markup

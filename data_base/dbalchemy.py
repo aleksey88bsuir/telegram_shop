@@ -1,3 +1,11 @@
+from sqlalchemy.orm import sessionmaker
+from core import setting
+from core.models import Product
+from sqlalchemy import create_engine
+from .dbcore import Base
+from os import path
+
+
 class Singleton(type):
     """
     Патерн Singleton предоставляет механизм создания одного
@@ -20,4 +28,25 @@ class DBManager(metaclass=Singleton):
     """
 
     def __init__(self):
-        pass
+        """
+        Инициализация сесии и подключения к БД
+        """
+        self.engine = create_engine(setting.DATABASE)
+        session = sessionmaker(bind=self.engine)
+        self._session = session()
+        if not path.isfile(setting.DATABASE):
+            Base.metadata.create_all(self.engine)
+
+    def select_all_products_category(self, category):
+        """
+        Возвращает все товары категории
+        """
+        result = self._session.query(Product).filter_by(
+            category_id=category).all()
+
+        self.close()
+        return result
+
+    def close(self):
+        """ Закрывает сессию """
+        self._session.close()

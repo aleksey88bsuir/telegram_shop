@@ -59,29 +59,58 @@ class HandlerAllText(Handler):
         self.bot.send_message(message.chat.id, "Ок",
                               reply_markup=self.keybords.category_menu())
 
+    # def handle(self):
+    #     @self.bot.message_handler(func=lambda message: True)
+    #     def handle(message):
+    #         # ********** меню ********** #
+    #
+    #         if message.text == setting.KEYBOARD['INFO']:
+    #             self.pressed_btn_info(message)
+    #
+    #         if message.text == setting.KEYBOARD['SETTINGS']:
+    #             self.pressed_btn_settings(message)
+    #
+    #         if message.text == setting.KEYBOARD['<<']:
+    #             self.pressed_btn_back(message)
+    #
+    #         if message.text == setting.KEYBOARD['CHOOSE_GOODS']:
+    #             self.pressed_btn_category(message)
+    #
+    #         if message.text == setting.KEYBOARD['SEMIPRODUCT']:
+    #             self.pressed_btn_product(message, 'SEMIPRODUCT')
+    #
+    #         if message.text == setting.KEYBOARD['GROCERY']:
+    #             self.pressed_btn_product(message, 'GROCERY')
+    #
+    #         if message.text == setting.KEYBOARD['ICE_CREAM']:
+    #             self.pressed_btn_product(message, 'ICE_CREAM')
+    #
+    #         if message.text == setting.KEYBOARD['AUTO']:
+    #             self.pressed_btn_product(message, 'AUTO')
+
     def handle(self):
         @self.bot.message_handler(func=lambda message: True)
         def handle(message):
-            # ********** меню ********** #
+            special_actions = {
+                setting.KEYBOARD['INFO']: self.pressed_btn_info,
+                setting.KEYBOARD['SETTINGS']: self.pressed_btn_settings,
+                setting.KEYBOARD['<<']: self.pressed_btn_back,
+                setting.KEYBOARD['CHOOSE_GOODS']: self.pressed_btn_category,
+                setting.KEYBOARD['SEMIPRODUCT']:
+                    lambda message_:
+                    self.pressed_btn_product(message_, 'SEMIPRODUCT'),
+                setting.KEYBOARD['GROCERY']:
+                    lambda message_:
+                    self.pressed_btn_product(message_, 'GROCERY'),
+                setting.KEYBOARD['ICE_CREAM']:
+                    lambda message_:
+                    self.pressed_btn_product(message_, 'ICE_CREAM'),
+                setting.KEYBOARD['AUTO']:
+                    lambda message_:
+                    self.pressed_btn_product(message_, 'AUTO'),
+            }
 
-            if message.text == setting.KEYBOARD['INFO']:
-                self.pressed_btn_info(message)
-
-            if message.text == setting.KEYBOARD['SETTINGS']:
-                self.pressed_btn_settings(message)
-
-            if message.text == setting.KEYBOARD['<<']:
-                self.pressed_btn_back(message)
-
-            if message.text == setting.KEYBOARD['CHOOSE_GOODS']:
-                self.pressed_btn_category(message)
-
-            # ********** меню (категории товара, ПФ, Бакалея, Мороженое)******
-            if message.text == setting.KEYBOARD['SEMIPRODUCT']:
-                self.pressed_btn_product(message, 'SEMIPRODUCT')
-
-            if message.text == setting.KEYBOARD['GROCERY']:
-                self.pressed_btn_product(message, 'GROCERY')
-
-            if message.text == setting.KEYBOARD['ICE_CREAM']:
-                self.pressed_btn_product(message, 'ICE_CREAM')
+            for action, rule in special_actions.items():
+                if message.text == action:
+                    rule(message)
+                    break

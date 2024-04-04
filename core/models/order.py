@@ -1,14 +1,38 @@
-from .base import Base
+# компоненты библиотеки для описания структуры таблицы
+from sqlalchemy import Column, DateTime, Integer, ForeignKey
+# импортируем модуль для связки таблиц
+from sqlalchemy.orm import relationship, backref
 
-from datetime import datetime
-from sqlalchemy import func
-from sqlalchemy.orm import Mapped, mapped_column
+# импортируем модель продуктов для связки моделей
+from core.models.product import Products
+from data_base.dbcore import Base
+
 
 
 class Order(Base):
-    promocode: Mapped[str | None]
-    created_at: Mapped[datetime] = mapped_column(
-        server_default=func.now(),
-        default=datetime.now,
-    )
-    total_price: Mapped[int]
+    """
+    Класс для создания таблицы "Заказ",
+    основан на декларативном стиле SQLAlchemy
+    """
+    # название таблицы
+    __tablename__ = 'orders'
+
+    # поля таблицы
+    id = Column(Integer, primary_key=True)
+    quantity = Column(Integer)
+    data = Column(DateTime)
+    product_id = Column(Integer, ForeignKey('products.id'))
+    user_id = Column(Integer)
+
+    # для каскадного удаления данных из таблицы
+    products = relationship(
+        Products,
+        backref=backref('orders',
+                        uselist=True,
+                        cascade='delete,all'))
+
+    def __repr__(self):
+        """
+        Метод возвращает формальное строковое представление указанного объекта
+        """
+        return f"{self.quantity} {self.data}"

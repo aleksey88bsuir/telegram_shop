@@ -3,7 +3,7 @@ from emoji import emojize
 
 
 TOKEN = '6899962628:AAFyonrDwTtJKH1i8HxgmBTEpsROKUyLz0I'
-NAME_DB = 'R-443Y_shop.db'
+NAME_DB = 'products.db'
 VERSION = '0.0.1'
 AUTHOR = 'R-443Y_company'
 
@@ -41,6 +41,7 @@ CATEGORY = {
     'GROCERY': 2,
     'ICE_CREAM': 3,
     'AUTO': 4,
+    'OTHER': 5,
 }
 
 # названия команд

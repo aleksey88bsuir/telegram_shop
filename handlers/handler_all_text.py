@@ -47,6 +47,26 @@ class HandlerAllText(Handler):
         self.bot.send_message(message.chat.id, "Сделайте свой выбор",
                               reply_markup=self.keybords.category_menu())
 
+    # def pressed_btn_product2(self, message, product):
+    #     """
+    #     Обработка события нажатия на кнопку 'Выбрать товар'. А точнее
+    #     это выбор товара из категории
+    #     """
+    #     product_info = self.get_product_info(product) # Предполагается, что у вас есть метод для получения информации о продукте
+    #     formatted_message = f"""
+    #     <b>{product_info.name}</b>
+    #     <i>{product_info.description}</i>
+    #     <code>{product_info.price/100} BYN</code>
+    #     """
+    #     self.bot.send_message(
+    #         message.chat.id,
+    #         formatted_message,
+    #         parse_mode="HTML",
+    #         reply_markup=self.keybords.set_select_category(
+    #             setting.CATEGORY[product])
+    #     )
+    #     self.bot.send_message(message.chat.id, "Ок", reply_markup=self.keybords.category_menu())
+
     def pressed_btn_product(self, message, product):
         """
         Обработка события нажатия на кнопку 'Выбрать товар'. А точнее
@@ -114,3 +134,9 @@ class HandlerAllText(Handler):
                 if message.text == action:
                     rule(message)
                     break
+            else:
+                self.bot.send_message(
+                    message.chat.id,
+                    "Данная кнопка не работает...",
+                    reply_markup=self.keybords.start_menu()
+                )

@@ -1,12 +1,10 @@
 __all__ = (
-    "Base",
     "Category",
-    "Product",
+    "Products",
     "Order",
 )
 
 
-from .base import Base
 from .category import Category
-from .product import Product
+from .product import Products
 from .order import Order

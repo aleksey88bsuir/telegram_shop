@@ -8,6 +8,7 @@ from core.utility import _convert
 from sqlalchemy import create_engine
 from .dbcore import Base
 from os import path
+from datetime import datetime
 
 
 class Singleton(type):
@@ -73,7 +74,7 @@ class DBManager(metaclass=Singleton):
                 print("Недостаточно товара на складе.")
                 return
             order = Order(quantity=quantity, product_id=product_id,
-                          user_id=user_id)
+                          user_id=user_id, data=datetime.now())
             quantity_product -= 1
             self.update_product_value(product_id, 'quantity', quantity_product)
         self._session.add(order)

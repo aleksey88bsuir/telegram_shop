@@ -52,7 +52,7 @@ settings = """
     KEYBOARD['BACK_STEP'],
     KEYBOARD['X'],
     KEYBOARD['ORDER'],
-    KEYBOARD['APPLAY'],
+    KEYBOARD['PLACE_AN_ORDER'],
     VERSION,
     AUTHOR,
     KEYBOARD['COPY'],

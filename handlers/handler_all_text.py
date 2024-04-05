@@ -14,7 +14,7 @@ class HandlerAllText(Handler):
 
     def pressed_btn_info(self, message):
         """
-        обрабатывает входящие текстовые сообщения
+        Обрабатывает входящие текстовые сообщения
         от нажатия на кнопку 'О магазине'.
         """
         self.bot.send_message(message.chat.id, MESSAGES['trading_store'],
@@ -23,7 +23,7 @@ class HandlerAllText(Handler):
 
     def pressed_btn_settings(self, message):
         """
-        обрабатывает входящие текстовые сообщения
+        Обрабатывает входящие текстовые сообщения
         от нажатия на кнопку 'Настройки'.
         """
         self.bot.send_message(message.chat.id, MESSAGES['settings'],
@@ -32,14 +32,14 @@ class HandlerAllText(Handler):
 
     def pressed_btn_back(self, message):
         """
-        обрабатывает входящие текстовые сообщения от нажатия на кнопку 'Назад'.
+        Обрабатывает входящие текстовые сообщения от нажатия на кнопку 'Назад'.
         """
         self.bot.send_message(message.chat.id, "Вы вернулись назад",
                               reply_markup=self.keybords.start_menu())
 
     def pressed_btn_category(self, message):
         """
-        Обработка события нажатия на кнопку 'Выбрать товар'. А точнеe
+        Обработка события нажатия на кнопку 'Выбрать товар'. А точнее
         это выбор категории товаров
         """
         self.bot.send_message(message.chat.id, "Каталог категорий товара",

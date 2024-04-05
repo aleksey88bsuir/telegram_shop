@@ -31,7 +31,7 @@ KEYBOARD = {
     'AMOUNT_PRODUCT': COUNT,
     'AMOUNT_ORDERS': COUNT,
     'UP': emojize('🔼'),
-    'APPLAY': '✅ Оформить заказ',
+    'PLACE_AN_ORDER': '✅ Оформить заказ',
     'COPY': '©️'
 }
 

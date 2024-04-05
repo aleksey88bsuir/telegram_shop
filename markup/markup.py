@@ -19,6 +19,14 @@ class Keyboards:
         """
         Создает и возвращает кнопку по входным параметрам
         """
+        if name == "AMOUNT_ORDERS":
+            setting.KEYBOARD[name] = "{} {} {}".format(
+                step + 1,
+                ' из ',
+                str(self.BD.count_rows_order())
+            )
+        if name == "AMOUNT_PRODUCT":
+            setting.KEYBOARD[name] = "{}".format(quantity)
         return KeyboardButton(setting.KEYBOARD.get(name, name))
 
     def start_menu(self):
@@ -97,7 +105,7 @@ class Keyboards:
         itm_btn_5 = self.set_btn('BACK_STEP', step, quantity)
         itm_btn_6 = self.set_btn('AMOUNT_ORDERS', step, quantity)
         itm_btn_7 = self.set_btn('NEXT_STEP', step, quantity)
-        itm_btn_8 = self.set_btn('APPLAY', step, quantity)
+        itm_btn_8 = self.set_btn('PLACE_AN_ORDER', step, quantity)
         itm_btn_9 = self.set_btn('<<', step, quantity)
         self.markup.row(itm_btn_1, itm_btn_2, itm_btn_3, itm_btn_4)
         self.markup.row(itm_btn_5, itm_btn_6, itm_btn_7)

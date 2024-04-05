@@ -7,15 +7,15 @@ class HandlerInlineQuery(Handler):
         super().__init__(bot)
 
     def pressed_btn_product(self, call, code):
-        self.BD._add_orders(1, code, 1)
+        self.BD._add_orders(1, code, int(call.id))
+        name, title, price, quantity = self.BD.select_single_product_attrs(
+            code)
         self.bot.answer_callback_query(
             call.id,
-            MESSAGES['product_order'].format(
-                self.BD.select_single_product_name(code),
-                self.BD.select_single_product_title(code),
-                self.BD.select_single_product_price(code),
-                self.BD.select_single_product_quantity(code)),
-            show_alert=True)
+            MESSAGES.get('product_order').format(
+                name, title, price, quantity),
+            show_alert=True
+            )
 
     def handle(self):
         @self.bot.callback_query_handler(func=lambda call: True)
@@ -24,5 +24,3 @@ class HandlerInlineQuery(Handler):
             if code.isdigit():
                 code = int(code)
             self.pressed_btn_product(call, code)
-
-

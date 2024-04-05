@@ -92,12 +92,6 @@ class DBManager(metaclass=Singleton):
         self._session.commit()
         self.close()
 
-    def select_single_product_quantity(self, rownum):
-        result = self._session.query(
-            Products.quantity).filter_by(id=rownum).one()
-        self.close()
-        return result.quantity
-
     def update_product_value(self, rownum, name, value):
         self._session.query(Products).filter_by(id=rownum).update({name: value})
         self._session.commit()
@@ -109,6 +103,11 @@ class DBManager(metaclass=Singleton):
         self.close()
         return result.quantity
 
+    def count_rows_order(self):
+        result = self._session.query(Order).count()
+        self.close()
+        return result
+
     def select_single_product_title(self, rownum):
         result = self._session.query(Products.title).filter_by(id=rownum).one()
         self.close()
@@ -119,12 +118,23 @@ class DBManager(metaclass=Singleton):
         self.close()
         return result.name
 
+    def select_single_product_quantity(self, rownum):
+        result = self._session.query(
+            Products.quantity).filter_by(id=rownum).one()
+        self.close()
+        return result.quantity
+
     def select_single_product_price(self, rownum):
         result = self._session.query(Products.price).filter_by(id=rownum).one()
         self.close()
         return result.price
 
-    def count_rows_order(self):
-        result = self._session.query(Order).count()
+    def select_single_product_attrs(self, rownum):
+        result = self._session.query(Products.name,
+                                     Products.title,
+                                     Products.price,
+                                     Products.quantity).filter_by(
+            id=rownum
+        ).one()
         self.close()
-        return result
+        return result.name, result.title, result.price, result.quantity

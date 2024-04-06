@@ -138,3 +138,20 @@ class DBManager(metaclass=Singleton):
         ).one()
         self.close()
         return result.name, result.title, result.price, result.quantity
+
+    def delete_order(self, product_id):
+        self._session.query(Order).filter_by(product_id=product_id).delete()
+        self._session.commit()
+        self.close()
+
+    def delete_all_order(self):
+        all_id_orders = self.select_all_order_id()
+        for itm in all_id_orders:
+            self._session.query(Order).filter_by(id=itm).delete()
+            self._session.commit()
+        self.close()
+
+    def select_all_order_id(self):
+        result = self._session.query(Order.id).all()
+        self.close()
+        return _convert(result)

@@ -131,9 +131,10 @@ class HandlerAllText(Handler):
             self.BD.update_product_value(count[self.step],
                                          'quantity',
                                          quantity_product)
-            self.step -= 1
+            self.step = count.__len__()
         count = self.BD.select_all_product_id()
         if count.__len__() > 0:
+            self.step = 0
             quantity_order = self.BD.select_order_quantity(
                 count[self.step]
             )
@@ -141,7 +142,7 @@ class HandlerAllText(Handler):
         else:
             self.bot.send_message(message.chat.id, MESSAGES['no_orders'],
                                   parse_mode="HTML",
-                                  reply_markup=self.keybords.orders_menu())
+                                  reply_markup=self.keybords.category_menu())
 
     def pressed_btn_back_step(self, message):
         if self.step > 0:

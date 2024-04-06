@@ -1,6 +1,7 @@
 from core.message import MESSAGES
 from core import setting
 from handlers.handler import Handler
+import core.utility as ut
 
 
 class HandlerAllText(Handler):
@@ -62,8 +63,13 @@ class HandlerAllText(Handler):
     def pressed_btn_orders(self, message):
         self.step = 0
         count = self.BD.select_all_product_id()
-        quantity = self.BD.select_order_quantity(count[self.step])
-        self.send_message_order(count[self.step], quantity, message)
+        if len(count) != 0:
+            quantity = self.BD.select_order_quantity(count[self.step])
+            self.send_message_order(count[self.step], quantity, message)
+        else:
+            self.bot.send_message(message.chat.id,
+                                  'Вы ничего не выбрали',
+                                  reply_markup=self.keybords.category_menu())
 
     def send_message_order(self, product_id, quantity, message):
         self.bot.send_message(
@@ -151,8 +157,14 @@ class HandlerAllText(Handler):
         quantity = self.BD.select_order_quantity(count[self.step])
         self.send_message_order(count[self.step], quantity, message)
 
-    def pressed_btn_apllay(self):
-        pass
+    def pressed_btn_apllay(self, message):
+        self.bot.send_message(message.chat.id,
+                              MESSAGES['PLACE_AN_ORDER'].format(
+                                  ut.get_total_coast(self.BD),
+                                  ut.get_total_quantity(self.BD)),
+                              parse_mode="HTML",
+                              reply_markup=self.keybords.category_menu())
+        self.BD.delete_all_order()
 
     def handle(self):
         @self.bot.message_handler(func=lambda message: True)

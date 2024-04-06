@@ -109,6 +109,6 @@ MESSAGES = {
     'order': order,
     'order_number': order_number,
     'no_orders': no_orders,
-    'applay': applay,
+    'PLACE_AN_ORDER': applay,
     'settings': settings
 }
